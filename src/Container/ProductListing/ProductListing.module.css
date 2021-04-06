@@ -1,0 +1,105 @@
+.ProductListing_Flex_Div{
+    margin-top: 100px;
+    display: flex;
+    width:100%;
+    padding-left: 20px;
+}
+.ProductListing_Left{
+    width:20%;
+    /* background-color: red; */
+    height: 100vh;
+    border-right: 2px solid #DDDDDD;
+}
+
+.MinMax_Div{
+    display: flex;
+}
+.Min{
+    width:50px;
+    margin-right: 10px;
+
+}
+.Price_Btn{
+    margin-top: 10px;
+    min-width: 125px;
+    padding: 12px;
+    border:0;
+    background-color: #F3A847;
+    border-radius: 5px;
+}
+.Sort{
+    margin-top: 30px;
+}
+.Sort_Div{
+    display: flex;
+    /* margin-top: 30px; */
+}
+.High_Low{
+ 
+    min-width: 125px;
+    padding: 12px;
+    border:0;
+    background-color: #F3A847;
+    border-radius: 5px;
+    margin-right: 10px;
+
+}
+.Card_Listing{
+    padding-left: 20px;
+    /* background-color: #F3A847; */
+}
+.Card{
+margin-left: 20px;
+width:300px;
+height:500px;
+/* background-color: red; */
+}
+.Image{
+    width:200px;
+    height: 200px;
+    object-fit: contain;
+}
+.Review_Div{
+    display: flex;
+    align-items: center;
+}
+.Star{
+    color: #F3A847;
+}
+.Angle_Down{
+    color: #188DD6;
+    margin-left: 0;
+    
+}
+.Review{
+    color: #188DD6;
+    margin:0;
+    margin-left: 5px;
+}
+.Price_Section{
+    display: flex;
+    align-items: center;
+    /* margin-bottom: 0; */
+}
+.RupeeSign{
+    font-size: 10px;
+}
+.Price{
+    font-size: 24px;
+    margin-right: 10px;
+}
+.Amz_Logo{
+    width:40px;
+
+    /* background-color: black; */
+}
+.Delivery_date{
+    margin:0;
+}
+.Date{
+    font-weight: 500;
+}
+.Card_Listing{
+    display: flex;
+    flex-wrap: wrap;
+}
