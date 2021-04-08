@@ -1,6 +1,7 @@
 import classes from "./ProductListing.module.css";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import  {Link} from 'react-router-dom'
 import {
   faStar,
   faStarHalf,
@@ -185,7 +186,7 @@ function ProductListing() {
           <section className={classes.Card_Listing}>
             {
               products && products.map(item => {
-                return (<div className={classes.Card} key={item.id + item.product}>
+                return (<Link to={`/details/${prodId}/${item.id}`} className={classes.Card} key={item.id + item.product}>
                   <img
                     className={classes.Image}
                     src={item.productUrl}
@@ -228,7 +229,7 @@ function ProductListing() {
                       <span className={classes.Date}> {item.estimatedDeliveryDate}</span>
                     </p>
                   </div>
-                </div>)
+                </Link>)
               })
             }
 
