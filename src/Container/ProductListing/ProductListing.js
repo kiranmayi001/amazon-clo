@@ -1,7 +1,7 @@
 import classes from "./ProductListing.module.css";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import  {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   faStar,
   faStarHalf,
@@ -12,10 +12,11 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function ProductListing() {
-  const productId = useParams();
-  console.log(productId.id);
+  const productId = useParams().id.split('=')[0];
+  const productNa = useParams().id.split('=')[1];
 
-  const [prodId, setProId] = useState(productId.id);
+  console.log(productNa);
+  const [prodId, setProId] = useState(productId);
   const [products, setProducts] = useState([]);
   const [storeData, setStoreData] = useState([])
   const [brands, setBrands] = useState([]);
@@ -24,6 +25,8 @@ function ProductListing() {
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState(0)
   const [slidervalue, setSliderValue] = useState(0)
+  const [productName, setProductName] = useState(productNa)
+  console.log(productName);
 
   useEffect(() => {
     axios
@@ -186,7 +189,7 @@ function ProductListing() {
           <section className={classes.Card_Listing}>
             {
               products && products.map(item => {
-                return (<Link to={`/details/${prodId}/${item.id}`} className={classes.Card} key={item.id + item.product}>
+                return (<Link to={`/details/${prodId}/${item.id}=${productName}`} className={classes.Card} key={item.id + item.product}>
                   <img
                     className={classes.Image}
                     src={item.productUrl}

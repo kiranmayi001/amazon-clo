@@ -13,12 +13,12 @@ function LandingPage() {
 
   // }
 
-  const prevSliderImage=()=>{
-      sliderId==0 ? setsliderId(SliderData.length-1) : setsliderId(sliderId-1)
+  const prevSliderImage = () => {
+    sliderId == 0 ? setsliderId(SliderData.length - 1) : setsliderId(sliderId - 1)
   }
 
-  const nextSilderImage = ()=>{
-       sliderId ==SliderData.length-1 ? setsliderId(0) : setsliderId(sliderId+1)
+  const nextSilderImage = () => {
+    sliderId == SliderData.length - 1 ? setsliderId(0) : setsliderId(sliderId + 1)
   }
 
   useEffect(() => {
@@ -46,28 +46,28 @@ function LandingPage() {
           onClick={() => nextSilderImage()}
         />
         <div className={classes.SlideWrapper}>
-        {SliderData &&
-          SliderData.map((item, index) => {
-            return (
-              <div
-                key={item.image + index}
-                className={
-                  index == sliderId
-                    ? classes.activeSliderImage
-                    : classes.SliderImage
-                }
-              >
-                {index == sliderId && (
-                  <img
-                    src={item.image}
-                    className={classes.bannerImage}
-                    alt="Slider"
-                  />
-                )}
-              </div>
-            );
-          })}
-      </div>
+          {SliderData &&
+            SliderData.map((item, index) => {
+              return (
+                <div
+                  key={item.image + index}
+                  className={
+                    index == sliderId
+                      ? classes.activeSliderImage
+                      : classes.SliderImage
+                  }
+                >
+                  {index == sliderId && (
+                    <img
+                      src={item.image}
+                      className={classes.bannerImage}
+                      alt="Slider"
+                    />
+                  )}
+                </div>
+              );
+            })}
+        </div>
       </div>
 
       <div className={classes.ProductDivisionContainer}>
@@ -77,7 +77,7 @@ function LandingPage() {
               products.map((item) => {
                 return (
                   <Link
-                    to={`/productlisting/${item.id}`}
+                    to={`/productlisting/${item.id}=${item.title}`}
                     className={classes.Card}
                   >
                     <h3 className={classes.Heading_Specific}>Top Picks</h3>
