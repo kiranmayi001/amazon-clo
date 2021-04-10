@@ -15,6 +15,7 @@ function Details() {
     const [activeprev, setActivePre] = useState([])
     const [arr, setArr] = useState([])
     const [localStore, setLocalStore] = useState([])
+    const [quantity, setQuantity] = useState(1)
     console.log(useParams())
     useEffect(() => {
         axios.get(`https://5ff9e67117386d0017b52317.mockapi.io/products/${productId}`)
@@ -31,8 +32,18 @@ function Details() {
 
     useEffect(() => {
         let datafromLocalStore = (localStorage.getItem('cartItems') === null) ? [] : JSON.parse(localStorage.getItem('cartItems'))
+
         setLocalStore([...datafromLocalStore])
-        console.log([...datafromLocalStore])
+        if (localStore) {
+            for (let i = 0; i < localStore.length; i++) {
+                if (localStore[i].id == detailObj.id + detailName) {
+                    console.log(detailObj.id)
+                    quantity = localStore[i].qty
+                    setQuantity(quantity)
+                }
+            }
+            // console.log([...datafromLocalStore])
+        }
 
     }, [])
 
@@ -41,8 +52,10 @@ function Details() {
         alert("add to cart?")
         console.log(localStore)
         if (localStore.length === 0) {
+
             detailObj.id = detailObj.id + detailName;
-            detailObj.qty = 1
+            detailObj.qty = quantity
+            detailObj.price = detailObj.price * detailObj.qty
             localStore.push(detailObj)
             setLocalStore([...localStore])
             localStorage.setItem('cartItems', JSON.stringify(localStore))
@@ -55,8 +68,13 @@ function Details() {
                 for (let i = 0; i < localStore.length; i++) {
                     if (localStore[i].id == detailObj.id) {
                         alert("item already Existed")
+                        let Newprice = localStore[i].price
                         isExist = true;
-                        localStore[i].qty = localStore[i].qty + 1
+                        Newprice = Newprice / localStore[i].qty;
+                        localStore[i].qty = quantity
+
+                        localStore[i].price = localStore[i].qty * Newprice
+                        console.log(localStore[i].qty.toString() * Newprice)
                         setLocalStore([...localStore])
                         localStorage.setItem('cartItems', JSON.stringify(localStore))
                         return;
@@ -65,7 +83,8 @@ function Details() {
                 if (isExist == false) {
                     alert("product does not exist")
                     detailObj.id = detailObj.id + detailName;
-                    detailObj.qty = 1
+                    detailObj.qty = quantity
+                    detailObj.price = detailObj.price * detailObj.qty
                     localStore.push(detailObj)
                     setLocalStore([...localStore])
                     localStorage.setItem('cartItems', JSON.stringify(localStore))
@@ -81,7 +100,22 @@ function Details() {
 
 
 
+
+
+
         localStorage.setItem("cartItems", JSON.stringify(localStore))
+    }
+
+
+
+    const handleIncrement = () => {
+        alert("inc")
+        setQuantity(() => quantity + 1)
+    }
+
+    const handleDecrement = () => {
+        alert("Dec")
+        setQuantity(() => quantity - 1)
     }
 
 
@@ -132,9 +166,9 @@ function Details() {
                 {/* Add to Cart Section */}
                 <section className={classes.Add_To_Cart_Section}>
                     <div className={classes.Qty_Section}>
-                        <p className={classes.Increment}>-</p>
-                        <p className={classes.Qty}>1</p>
-                        <p className={classes.Decrement}>+</p>
+                        <p className={classes.Increment} onClick={handleDecrement}>-</p>
+                        <p className={classes.Qty}>{quantity}</p>
+                        <p className={classes.Decrement} onClick={handleIncrement}>+</p>
                     </div>
                     <button className={classes.AddCart_Btn} onClick={handleAddToCart}>Add To Cart</button>
                 </section>
