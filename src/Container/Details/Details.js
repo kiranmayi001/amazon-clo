@@ -108,15 +108,15 @@ function Details() {
 
 
 
-    const handleIncrement = () => {
-        alert("inc")
-        setQuantity(() => quantity + 1)
-    }
+    // const handleIncrement = () => {
+    //     alert("inc")
+    //     setQuantity(() => quantity + 1)
+    // }
 
-    const handleDecrement = () => {
-        alert("Dec")
-        setQuantity(() => quantity - 1)
-    }
+    // const handleDecrement = () => {
+    //     alert("Dec")
+    //     setQuantity(() => quantity - 1)
+    // }
 
 
     return (
