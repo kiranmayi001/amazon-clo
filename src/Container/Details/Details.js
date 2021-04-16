@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRupeeSign, faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
+import { connect } from "react-redux"
 
 
-function Details() {
+function Details(props) {
     const detailsId = useParams().detailId.split('=')[0];
     const detailName = useParams().detailId.split('=')[1];
 
@@ -16,6 +17,7 @@ function Details() {
     const [arr, setArr] = useState([])
     const [localStore, setLocalStore] = useState([])
     const [quantity, setQuantity] = useState(1)
+    const [countOfItems, setCountOfItems] = useState("")
     console.log(useParams())
     useEffect(() => {
         axios.get(`https://5ff9e67117386d0017b52317.mockapi.io/products/${productId}`)
@@ -49,6 +51,7 @@ function Details() {
 
 
     const handleAddToCart = () => {
+        fetchLength()
         alert("add to cart?")
         console.log(localStore)
         if (localStore.length === 0) {
@@ -92,18 +95,15 @@ function Details() {
                 }
             }
 
+
+
         }
 
 
-
-
-
-
-
-
-
-
         localStorage.setItem("cartItems", JSON.stringify(localStore))
+        var payloadlength = JSON.parse(localStorage.getItem('cartItems'))
+        console.log("Payload Length" + payloadlength.length)
+
     }
 
 
@@ -118,6 +118,16 @@ function Details() {
         setQuantity(() => quantity - 1)
     }
 
+
+    function fetchLength() {
+        let data = JSON.parse(localStorage.getItem("cartItems"))
+        var qtys = 0
+        data && data.map(item => {
+            return (qtys = qtys + item.qty)
+        })
+        console.log(qtys)
+        setCountOfItems(qtys)
+    }
 
     return (
         <div className={classes.Details_Section}>
@@ -170,7 +180,7 @@ function Details() {
                         <p className={classes.Qty}>{quantity}</p>
                         <p className={classes.Decrement} onClick={handleIncrement}>+</p>
                     </div>
-                    <button className={classes.AddCart_Btn} onClick={handleAddToCart}>Add To Cart</button>
+                    <button className={classes.AddCart_Btn} onClick={handleAddToCart} onMouseOver={props.dispatch1} >Add To Cart</button>
                 </section>
                 {/* Decription */}
                 <section className={classes.Description_Section}>
@@ -188,5 +198,24 @@ function Details() {
         </div>
     )
 }
+// var numb = 0
+// function fetchLength() {
+//     let data = JSON.parse(localStorage.getItem("cartItems"))
+//     var qtys = 0
+//     data && data.map(item => {
+//         return (qtys = qtys + item.qty)
+//     })
+//     numb = qtys
+//     console.log(qtys)
+// }
 
-export default Details;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch1: () =>
+            dispatch({ type: "addToCart", payload: 5 })
+
+    }
+}
+
+
+export default connect(null, mapDispatchToProps)(Details)
